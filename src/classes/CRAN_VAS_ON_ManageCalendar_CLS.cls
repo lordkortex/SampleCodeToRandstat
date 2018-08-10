@@ -84,6 +84,11 @@ public class CRAN_VAS_ON_ManageCalendar_CLS{
     /** The Constant EXPR_0. */
     public static final String   EXPR_0 = 'Expr0';
 
+    /** The Constant PERMISSION. */
+    public static final String   PERMISSION = 'PermissionCalendar';
+    
+    
+
 
     /**
      * Instantiates a new CRA N VA S O N custom calendar WS handler CLS Constructor flip.
@@ -450,7 +455,9 @@ public class CRAN_VAS_ON_ManageCalendar_CLS{
      * @return the calendar configuration list
      */
     public List<CRAN_VAS_ON_Calendar_Configuration__mdt> getCalendarConfigurationList(){
-        List<CRAN_VAS_ON_Calendar_Configuration__mdt> calendarConfigurationList = [Select Permission_Set__c,Duration_Call__c,Next_Days_Configuration__c,RecordType_Event_Calendar__c From CRAN_VAS_ON_Calendar_Configuration__mdt];
+        List<CRAN_VAS_ON_Calendar_Configuration__mdt> calendarConfigurationList = [Select Permission_Set__c,Duration_Call__c,Next_Days_Configuration__c,RecordType_Event_Calendar__c 
+                                                                                   From CRAN_VAS_ON_Calendar_Configuration__mdt 
+                                                                                   Where Permission_Set__c =: PERMISSION];
 
         if(calendarConfigurationList.isEmpty()){
             throw new CRAN_VAS_ON_Exception(ERROR_INTERNAL,ERROR_CONFIGURACION_AGENTES_METADATA_TYPES );
