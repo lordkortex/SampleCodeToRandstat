@@ -296,34 +296,37 @@ public with sharing class CRAN_VAS_ON_ManageCalendar_CLS{
     public Event upsertEvent(final Datetime inputEventDateTimeOffset,final Integer configurationMinutes,final Id idCase,final Id idEvent,
                                                             final RecordType recordType,final String userSelected){
     
-        Event eventCalendar;
-        
-         inputEventDateTimeOffset = getOffsetZoneDateTime(inputEventDateTimeOffset,-1);
+            Event eventCalendar;
+            inputEventDateTimeOffset = getOffsetZoneDateTime(inputEventDateTimeOffset,-1);
             Date startEvenDate = inputEventDateTimeOffset.Date();
             Datetime  endEvenDateTime =  inputEventDateTimeOffset.addMinutes(configurationMinutes);
-             
-             
-            if(idEvent != null ){
-                List<Event> eventListAfter =getSpecificEvent(idEvent);
-                eventCalendar = eventListAfter.get(0);
-                eventCalendar.ActivityDate = startEvenDate;
-                eventCalendar.ActivityDateTime=inputEventDateTimeOffset;
-                eventCalendar.DurationInMinutes=configurationMinutes;
-                eventCalendar.StartDateTime = inputEventDateTimeOffset;
-                eventCalendar.EndDateTime= endEvenDateTime;
-                eventCalendar.WhatId= idCase;
-            }else{
-                Case caseObj = CRAN_VAS_ON_ManageCaseUtil_CLS.queryCase(idCase, new Set<String>{STATUS,LEAD_OBJECT,CONCTACTID_FIELD},null);
-                Id whoIdInput =  caseObj.CRAN_VAS_ON_L_Lead__c   == null ? caseObj.ContactId : caseObj.CRAN_VAS_ON_L_Lead__c    ;
-                eventCalendar = new Event(Subject = CALL,OwnerId = userSelected,
-                        ActivityDate = startEvenDate,ActivityDateTime=inputEventDateTimeOffset,
-                        DurationInMinutes=configurationMinutes,
-                        StartDateTime = inputEventDateTimeOffset,EndDateTime= endEvenDateTime,
-                        WhatId = idCase, 
-                        EventSubtype= EVENT_OBJECT_TYPE,RecordType= recordType);
-            }
             
-            upsert eventCalendar;    
+            try {
+                 if(idEvent != null ){
+                    List<Event> eventListAfter =getSpecificEvent(idEvent);
+                    eventCalendar = eventListAfter.get(0);
+                    eventCalendar.ActivityDate = startEvenDate;
+                    eventCalendar.ActivityDateTime=inputEventDateTimeOffset;
+                    eventCalendar.DurationInMinutes=configurationMinutes;
+                    eventCalendar.StartDateTime = inputEventDateTimeOffset;
+                    eventCalendar.EndDateTime= endEvenDateTime;
+                    eventCalendar.WhatId= idCase;
+                }else{
+                    Case caseObj = CRAN_VAS_ON_ManageCaseUtil_CLS.queryCase(idCase, new Set<String>{STATUS,LEAD_OBJECT,CONCTACTID_FIELD},null);
+                    Id whoIdInput =  caseObj.CRAN_VAS_ON_L_Lead__c   == null ? caseObj.ContactId : caseObj.CRAN_VAS_ON_L_Lead__c    ;
+                    eventCalendar = new Event(Subject = CALL,OwnerId = userSelected,
+                            ActivityDate = startEvenDate,ActivityDateTime=inputEventDateTimeOffset,
+                            DurationInMinutes=configurationMinutes,
+                            StartDateTime = inputEventDateTimeOffset,EndDateTime= endEvenDateTime,
+                            WhatId = idCase, 
+                            EventSubtype= EVENT_OBJECT_TYPE,RecordType= recordType);
+                }
+
+                upsert eventCalendar;  
+                
+            } catch(DmlException e) {
+                throw new CRAN_VAS_ON_Exception(ERROR_INTERNAL,e.getMessage());
+            }
             
         return eventCalendar;
     
