@@ -6,7 +6,7 @@
 * @group-content ../../ApexDocContent/CRAN_VAS_ON_Calendar_TST.htm
 * @description Class to expose test webservice methods for Calendar service
 */
-@isTest(SeeAllData=false)
+
 private class CRAN_VAS_ON_Calendar_TST {
 
     /** The ACTIONID. */
@@ -111,7 +111,7 @@ private class CRAN_VAS_ON_Calendar_TST {
     /**
     * Method used to create profiles, premission set and assignments for agents related to businness hour which will be available for agent distribution.
     */
-    @testSetup static void methodInitial() {
+    static void methodInitial() {
         
         List<CRAN_VAS_ON_Calendar_Configuration__mdt> calendarConfigurationList = [SELECT Permission_Set__c,Duration_Call__c,Next_Days_Configuration__c,RecordType_Event_Calendar__c,CRAN_VAS_ON_T_Business_Hour__c 
                                                                                     FROM CRAN_VAS_ON_Calendar_Configuration__mdt];
