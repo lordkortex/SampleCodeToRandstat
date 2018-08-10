@@ -108,7 +108,26 @@ private class CRAN_VAS_ON_Calendar_TST {
 
      /** The PREMISISON.  */
     public static final String PREMISISON  = 'PermissionCalendar' ; 
+    
+    /** The EXPECTED_VALIDATED.  */
+    public static final String EXPECTED_VALIDATED  = 'Validated value is not the expected' ; 
 
+    /** The EXPECTED_VALIDATED.  */
+    public static final String EXPECTED_CASE  = 'Case value is not the expected' ; 
+    
+    /** The EXPECTED_VALIDATED.  */
+    public static final String EXPECTED_ERROR = 'Error value is not the expected' ; 
+
+    /** The EXPECTED_VALIDATED.  */
+    public static final String EXPECTED_CURRENT_STATUS = 'Status value is not the expected' ; 
+
+    /** The EXPECTED_VALIDATED.  */
+    public static final String EXPECTED_NEXT_STATUS  = 'Validated value is not the expected' ; 
+
+    /** The EXPECTED_VALIDATED.  */
+    public static final String EXPECTED_EVENT = 'Event value is not the expected' ; 
+
+ 
     /**
     * Method used to create profiles, premission set and assignments for agents related to businness hour which will be available for agent distribution.
     */
@@ -167,12 +186,12 @@ private class CRAN_VAS_ON_Calendar_TST {
         CRAN_VAS_ON_ResponseWSWrapper_CLS.CRAN_VAS_ON_ResponseWSWrapperCalendar_CLS results = CRAN_VAS_ON_TestBase_CLS.putJSON(INVALIDACTIONID, paramsJSON);
         Test.stopTest();
 
-        System.assertEquals(null, results.validated); 
-        System.assertEquals(null, results.caseId);
-        System.assertEquals(null, results.error);
-        System.assertEquals(null, results.currentStatus );
-        System.assertEquals(null, results.nextStatus); 
-        System.assertEquals(null, results.eventId);  
+        System.assertEquals(null, results.validated,EXPECTED_VALIDATED); 
+        System.assertEquals(null, results.caseId,EXPECTED_VALIDATED);
+        System.assertEquals(null, results.error,EXPECTED_ERROR);
+        System.assertEquals(null, results.currentStatus,EXPECTED_CURRENT_STATUS );
+        System.assertEquals(null, results.nextStatus,EXPECTED_NEXT_STATUS); 
+        System.assertEquals(null, results.eventId,EXPECTED_EVENT);  
     }
     
     
@@ -203,11 +222,11 @@ private class CRAN_VAS_ON_Calendar_TST {
                 Where WhatId =  :caseItem.Id
         ];
 
-        System.assertEquals(true, results.validated); 
-        System.assertEquals(caseItem.Id, results.caseId);
-        System.assertEquals(false, results.error);
-        System.assertEquals(PARAMETER_CASE_CREATED, results.currentStatus );
-        System.assertEquals(PARAMETER_MIFID_TEST, results.nextStatus); 
+        System.assertEquals(true, results.validated,EXPECTED_VALIDATED); 
+        System.assertEquals(caseItem.Id, results.caseId,EXPECTED_VALIDATED);
+        System.assertEquals(false, results.error,EXPECTED_VALIDATED);
+        System.assertEquals(PARAMETER_CASE_CREATED, results.currentStatus,EXPECTED_VALIDATED );
+        System.assertEquals(PARAMETER_MIFID_TEST, results.nextStatus,EXPECTED_VALIDATED); 
 
        
         
@@ -260,12 +279,12 @@ private class CRAN_VAS_ON_Calendar_TST {
         ];
         
     
-        System.assertEquals(0, caseEventAfterDelete.size());
-        System.assertEquals(true, results.validated); 
-        System.assertEquals(caseItem.Id, results.caseId);
-        System.assertEquals(false, results.error);
-        System.assertEquals(PARAMETER_CASE_CREATED, results.currentStatus );
-        System.assertEquals(PARAMETER_MIFID_TEST, results.nextStatus);
+        System.assertEquals(0, caseEventAfterDelete.size(),EXPECTED_VALIDATED);
+        System.assertEquals(true, results.validated,EXPECTED_VALIDATED); 
+        System.assertEquals(caseItem.Id, results.caseId,EXPECTED_VALIDATED);
+        System.assertEquals(false, results.error,EXPECTED_VALIDATED);
+        System.assertEquals(PARAMETER_CASE_CREATED, results.currentStatus,EXPECTED_VALIDATED );
+        System.assertEquals(PARAMETER_MIFID_TEST, results.nextStatus,EXPECTED_VALIDATED);
        
     }
     
@@ -301,11 +320,11 @@ private class CRAN_VAS_ON_Calendar_TST {
 
         CRAN_VAS_ON_ResponseWSWrapper_CLS response = (CRAN_VAS_ON_ResponseWSWrapper_CLS)responseRequest;
 
-        System.assertEquals(true, response.validated); 
-        System.assertEquals(caseItem.Id, response.caseId);
-        System.assertEquals(false, response.error);
-        System.assertEquals(PARAMETER_CASE_CREATED, response.currentStatus );
-        System.assertEquals(PARAMETER_MIFID_TEST, response.nextStatus);
+        System.assertEquals(true, response.validated,EXPECTED_VALIDATED); 
+        System.assertEquals(caseItem.Id, response.caseId,EXPECTED_VALIDATED);
+        System.assertEquals(false, response.error,EXPECTED_VALIDATED);
+        System.assertEquals(PARAMETER_CASE_CREATED, response.currentStatus,EXPECTED_VALIDATED );
+        System.assertEquals(PARAMETER_MIFID_TEST, response.nextStatus,EXPECTED_VALIDATED);
          
     }
      
@@ -327,11 +346,11 @@ private class CRAN_VAS_ON_Calendar_TST {
         
         CRAN_VAS_ON_ResponseWSWrapper_CLS response = (CRAN_VAS_ON_ResponseWSWrapper_CLS)responseRequest;
 
-        System.assertEquals(true, response.validated); 
-        System.assertEquals(caseItem.Id, response.caseId);
+        System.assertEquals(true, response.validated,EXPECTED_VALIDATED); 
+        System.assertEquals(caseItem.Id, response.caseId,EXPECTED_VALIDATED);
         System.assertEquals(false, response.error);
-        System.assertEquals(PARAMETER_CASE_CREATED, response.currentStatus );
-        System.assertEquals(PARAMETER_MIFID_TEST, response.nextStatus);   
+        System.assertEquals(PARAMETER_CASE_CREATED, response.currentStatus,EXPECTED_VALIDATED );
+        System.assertEquals(PARAMETER_MIFID_TEST, response.nextStatus,EXPECTED_VALIDATED);   
      }
      
     /**
@@ -357,8 +376,8 @@ private class CRAN_VAS_ON_Calendar_TST {
         List<Event> eventListAfter =[SELECT id FROM Event];
         Decimal counterEventAfter = eventListAfter.size();
         
-        System.assertEquals(counterEventAfter,counterEvent + 1);
-        System.assert(eventInsert.Id != null);
+        System.assertEquals(counterEventAfter,counterEvent + 1,EXPECTED_VALIDATED);
+        System.assert(eventInsert.Id != null,EXPECTED_VALIDATED);
             
     }
        
@@ -375,7 +394,7 @@ private class CRAN_VAS_ON_Calendar_TST {
             CRAN_VAS_ON_ManageCalendar_CLS calendarController  = new CRAN_VAS_ON_ManageCalendar_CLS();
             calendarController.insertCalendarEventDates(formatedDtCurrent,caseItem.Id,null);
         }catch(CRAN_VAS_ON_Exception ex){
-            System.assertEquals(ex.exceptionDescription,PARAMETER_FECHA_INGRESADA);
+            System.assertEquals(ex.exceptionDescription,PARAMETER_FECHA_INGRESADA,EXPECTED_VALIDATED);
         }
     }
        
@@ -424,7 +443,7 @@ private class CRAN_VAS_ON_Calendar_TST {
             slotsAmount = slotsSet.size();
         }
 
-        System.Assert(slotsAmount>0);
+        System.Assert(slotsAmount>0,EXPECTED_VALIDATED);
     }
     
     
@@ -441,7 +460,7 @@ private class CRAN_VAS_ON_Calendar_TST {
             CRAN_VAS_ON_ManageCalendar_CLS calendarController = new CRAN_VAS_ON_ManageCalendar_CLS();
             calendarController.generateDates('',true,null,true);
         } catch(CRAN_VAS_ON_Exception ex){
-            System.assertEquals(ex.exceptionDescription,PARAMETER_INVALID_DAT_TIME);
+            System.assertEquals(ex.exceptionDescription,PARAMETER_INVALID_DAT_TIME,EXPECTED_VALIDATED);
         }
     
     }
@@ -464,7 +483,7 @@ private class CRAN_VAS_ON_Calendar_TST {
             
             calendarController .insertCalendarEventDates(formatedDtCurrent,caseItem.Id,null);
         } catch(CRAN_VAS_ON_Exception ex){
-            System.assertEquals(ex.exceptionDescription,PARAMETER_FECHA_INGRESADA_NO_INFERIOR);
+            System.assertEquals(ex.exceptionDescription,PARAMETER_FECHA_INGRESADA_NO_INFERIOR,EXPECTED_VALIDATED);
         }
        
     }
@@ -486,7 +505,7 @@ private class CRAN_VAS_ON_Calendar_TST {
             calendarController .insertCalendarEventDates(formatedDtCurrent,caseItem.Id,null);
         } catch(CRAN_VAS_ON_Exception ex){
             Boolean isContained = (ex.exceptionDescription.contains(PARAMETER_FECHA_INGRESADA_NO_INFERIOR));
-            System.assert(isContained);
+            System.assert(isContained,EXPECTED_VALIDATED);
         }
        
     }
@@ -509,7 +528,7 @@ private class CRAN_VAS_ON_Calendar_TST {
                 System.assert(isExceptionInvalidId);
             }catch(Exception ex){
                 Boolean isExceptionInvalidId = ex.getMessage().contains(PARAMETER_INVALID_DAT_TIME);
-                System.assert(isExceptionInvalidId);
+                System.assert(isExceptionInvalidId,EXPECTED_VALIDATED);
             }
         
     }
@@ -532,7 +551,7 @@ private class CRAN_VAS_ON_Calendar_TST {
             System.assert(isExceptionInvalidId);
         }catch(Exception ex){
             Boolean isExceptionInvalidId = ex.getMessage().contains(PARAMETER_INVALID_ID);
-            System.assert(isExceptionInvalidId);
+            System.assert(isExceptionInvalidId,EXPECTED_VALIDATED);
         }
     }
        
@@ -550,8 +569,8 @@ private class CRAN_VAS_ON_Calendar_TST {
         CRAN_VAS_ON_ResponseWSWrapper_CLS results = CRAN_VAS_ON_TestBase_CLS.getJSON(actionId, getRequest);
         Test.stopTest();
 
-        System.assert(results.validated == false);
-        System.assert(results.error == true);
+        System.assert(results.validated == false,EXPECTED_VALIDATED);
+        System.assert(results.error == true,EXPECTED_VALIDATED);
        
      }
     
@@ -569,8 +588,8 @@ private class CRAN_VAS_ON_Calendar_TST {
         CRAN_VAS_ON_ResponseWSWrapper_CLS results = CRAN_VAS_ON_TestBase_CLS.getJSON(actionId, getRequest );
         Test.stopTest();
        
-        System.assert(results.validated == false);
-        System.assert(results.error == true);
+        System.assert(results.validated == false,EXPECTED_VALIDATED);
+        System.assert(results.error == true,EXPECTED_VALIDATED);
     }
     
     
@@ -587,8 +606,8 @@ private class CRAN_VAS_ON_Calendar_TST {
         CRAN_VAS_ON_ResponseWSWrapper_CLS results = CRAN_VAS_ON_TestBase_CLS.getJSON(actionId, getRequest );
         Test.stopTest();
        
-        System.assert(results.validated == false);
-        System.assert(results.error == true);
+        System.assert(results.validated == false,EXPECTED_VALIDATED);
+        System.assert(results.error == true,EXPECTED_VALIDATED);
     }
     
     
@@ -610,8 +629,8 @@ private class CRAN_VAS_ON_Calendar_TST {
         CRAN_VAS_ON_ResponseWSWrapper_CLS.CRAN_VAS_ON_ResponseWSWrapperCalendar_CLS results = CRAN_VAS_ON_TestBase_CLS.postJSON(actionId, paramsJSON);
         Test.stopTest();
 
-        System.assert(results.validated == true);
-        System.assert(results.error == false);
+        System.assert(results.validated == true,EXPECTED_VALIDATED);
+        System.assert(results.error == false,EXPECTED_VALIDATED);
 
     }
     
@@ -630,7 +649,7 @@ private class CRAN_VAS_ON_Calendar_TST {
         Test.stopTest();
 
         Boolean isContained = (results.message.contains('Invalid date/time:'));
-        System.assert(isContained);
+        System.assert(isContained,EXPECTED_VALIDATED);
        
      }
     
@@ -650,7 +669,7 @@ private class CRAN_VAS_ON_Calendar_TST {
         Test.stopTest();
 
         Boolean isContained = (results.message.contains(CRAN_VAS_ON_Calendar_CLS.CASE_ID_INVALID));
-        System.assert(isContained);
+        System.assert(isContained,EXPECTED_VALIDATED);
 
     }
     
@@ -679,7 +698,7 @@ private class CRAN_VAS_ON_Calendar_TST {
         Test.stopTest();
 
         Boolean isContained = (results.message.contains(CRAN_VAS_ON_Calendar_CLS.SUCCESS_MESSAGE));
-        System.assert(isContained);
+        System.assert(isContained,EXPECTED_VALIDATED);
 
     
      }
@@ -703,7 +722,7 @@ private class CRAN_VAS_ON_Calendar_TST {
             CRAN_VAS_ON_Calendar_CLS controllerCalendar = new CRAN_VAS_ON_Calendar_CLS();   
             controllerCalendar.executeSubActionsPut('{"caseIdINVALID": "' + caseItem.Id + '","strDate":"02/02/2018 11:40","eventId":"' + eventInsert.Id + PARAMETER_END_CHAR,ACTIONID,200);
         } catch(CRAN_VAS_ON_Exception ex){
-            System.assertEquals(ex.exceptionDescription,CRAN_VAS_ON_ManageCalendar_CLS.ERROR_CASE_EMPTY);
+            System.assertEquals(ex.exceptionDescription,CRAN_VAS_ON_ManageCalendar_CLS.ERROR_CASE_EMPTY,EXPECTED_VALIDATED);
         }
 
      }
@@ -725,7 +744,7 @@ private class CRAN_VAS_ON_Calendar_TST {
             CRAN_VAS_ON_Calendar_CLS controllerCalendar = new CRAN_VAS_ON_Calendar_CLS();   
             controllerCalendar.executeSubActionsPut('{"caseIdINVALID": "' + caseItem.Id + '","strDate":"INVALID02/02/2018 11:40","eventId":"' + eventInsert.Id + PARAMETER_END_CHAR,ACTIONID,500);
         } catch(CRAN_VAS_ON_Exception ex){
-            System.assertEquals(ex.exceptionDescription,CRAN_VAS_ON_ManageCalendar_CLS.ERROR_CASE_EMPTY);
+            System.assertEquals(ex.exceptionDescription,CRAN_VAS_ON_ManageCalendar_CLS.ERROR_CASE_EMPTY,EXPECTED_VALIDATED);
         }
      }
      
@@ -752,11 +771,11 @@ private class CRAN_VAS_ON_Calendar_TST {
         CRAN_VAS_ON_ResponseWSWrapper_CLS response = (CRAN_VAS_ON_ResponseWSWrapper_CLS)responseRequest;
 
 
-        System.assertEquals(true, response.validated); 
-        System.assertEquals(caseItem.Id, response.caseId);
-        System.assertEquals(false, response.error);
-        System.assertEquals(PARAMETER_CASE_CREATED, response.currentStatus );
-        System.assertEquals(PARAMETER_MIFID_TEST, response.nextStatus);
+        System.assertEquals(true, response.validated,EXPECTED_VALIDATED); 
+        System.assertEquals(caseItem.Id, response.caseId,EXPECTED_VALIDATED);
+        System.assertEquals(false, response.error,EXPECTED_VALIDATED);
+        System.assertEquals(PARAMETER_CASE_CREATED, response.currentStatus,EXPECTED_VALIDATED );
+        System.assertEquals(PARAMETER_MIFID_TEST, response.nextStatus,EXPECTED_VALIDATED);
 
 
      }
@@ -781,7 +800,7 @@ private class CRAN_VAS_ON_Calendar_TST {
    
         
         } catch(CRAN_VAS_ON_Exception ex){
-            System.assertEquals(ex.exceptionDescription,CRAN_VAS_ON_ManageCalendar_CLS.ERROR_CASE_EMPTY);
+            System.assertEquals(ex.exceptionDescription,CRAN_VAS_ON_ManageCalendar_CLS.ERROR_CASE_EMPTY,EXPECTED_VALIDATED);
         }
 
     }   
@@ -805,7 +824,7 @@ private class CRAN_VAS_ON_Calendar_TST {
             Event eventInsert = calendarController.insertCalendarEventDates(formatedDtCurrent,caseItem.Id,null);   
             controllerCalendar.executeSubActionsDelete('{"eventId":"' + eventInsert.Id + PARAMETER_END_CHAR, ACTIONID,500);
         } catch(CRAN_VAS_ON_Exception ex){
-            System.assertEquals(ex.exceptionDescription,CRAN_VAS_ON_ManageCalendar_CLS.ERROR_CASE_EMPTY);
+            System.assertEquals(ex.exceptionDescription,CRAN_VAS_ON_ManageCalendar_CLS.ERROR_CASE_EMPTY,EXPECTED_VALIDATED);
         }
 
      }
