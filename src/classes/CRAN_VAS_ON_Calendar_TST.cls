@@ -258,12 +258,12 @@ private class CRAN_VAS_ON_Calendar_TST {
             Where WhatId =  :caseItem.Id
         ];   
 
-        System.assertEquals(1, caseEvent.size());
-        System.assertEquals(true, resultsPut.validated); 
-        System.assertEquals(caseItem.Id, resultsPut.caseId);
-        System.assertEquals(false, resultsPut.error);
-        System.assertEquals(PARAMETER_CASE_CREATED, resultsPut.currentStatus );
-        System.assertEquals(PARAMETER_MIFID_TEST, resultsPut.nextStatus);
+        System.assertEquals(1, caseEvent.size(),EXPECTED_VALIDATED);
+        System.assertEquals(true, resultsPut.validated,EXPECTED_VALIDATED); 
+        System.assertEquals(caseItem.Id, resultsPut.caseId,EXPECTED_VALIDATED);
+        System.assertEquals(false, resultsPut.error,EXPECTED_VALIDATED);
+        System.assertEquals(PARAMETER_CASE_CREATED, resultsPut.currentStatus,EXPECTED_VALIDATED );
+        System.assertEquals(PARAMETER_MIFID_TEST, resultsPut.nextStatus,EXPECTED_VALIDATED);
   
         String paramsDeleteJSON = PARAMETER_CASE + caseItem.Id + 
         PARAMETER_STRD_ATE  + dtStr + PARAMETER_EVENT + caseEvent.get(0).Id +PARAMETER_END_CHAR;
@@ -300,11 +300,11 @@ private class CRAN_VAS_ON_Calendar_TST {
         CRAN_VAS_ON_IResponseWSWrapper_CLS responseRequest = controllerCalendar.executeSubActionsGet(PARAMETER_CASE + caseItem.Id + PARAMETER_DATE_1,ACTIONID,200);
         CRAN_VAS_ON_ResponseWSWrapper_CLS response = (CRAN_VAS_ON_ResponseWSWrapper_CLS)responseRequest;
 
-        System.assertEquals(true, response.validated); 
-        System.assertEquals(caseItem.Id, response.caseId);
-        System.assertEquals(false, response.error);
-        System.assertEquals(PARAMETER_CASE_CREATED, response.currentStatus );
-        System.assertEquals(PARAMETER_MIFID_TEST, response.nextStatus);
+        System.assertEquals(true, response.validated,EXPECTED_VALIDATED); 
+        System.assertEquals(caseItem.Id, response.caseId,EXPECTED_VALIDATED);
+        System.assertEquals(false, response.error,EXPECTED_VALIDATED);
+        System.assertEquals(PARAMETER_CASE_CREATED, response.currentStatus,EXPECTED_VALIDATED );
+        System.assertEquals(PARAMETER_MIFID_TEST, response.nextStatus,EXPECTED_VALIDATED);
     }
      
      
