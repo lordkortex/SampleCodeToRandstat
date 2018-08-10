@@ -106,7 +106,8 @@ private class CRAN_VAS_ON_Calendar_TST {
     /** The PARAMETER_HOUR_3.  */
     public static final String PARAMETER_HOUR_3  = '?strDate=01/02/2018 10:00&caseId=' ; 
 
-
+     /** The PREMISISON.  */
+    public static final String PREMISISON  = 'PermissionCalendar' ; 
 
     /**
     * Method used to create profiles, premission set and assignments for agents related to businness hour which will be available for agent distribution.
@@ -114,7 +115,7 @@ private class CRAN_VAS_ON_Calendar_TST {
     @testSetup static void methodInitial() {
         
         List<CRAN_VAS_ON_Calendar_Configuration__mdt> calendarConfigurationList = [SELECT Permission_Set__c,Duration_Call__c,Next_Days_Configuration__c,RecordType_Event_Calendar__c,CRAN_VAS_ON_T_Business_Hour__c 
-                                                                                    FROM CRAN_VAS_ON_Calendar_Configuration__mdt];
+                                                                                    FROM CRAN_VAS_ON_Calendar_Configuration__mdt Where Permission_Set__c=: PREMISISON];
         String[] arrBusinnessHours = calendarConfigurationList.get(0).CRAN_VAS_ON_T_Business_Hour__c.split(SPLIT_CHAR);
         String businnessHourSelected = '';
         for (String businnessHour : arrBusinnessHours){
