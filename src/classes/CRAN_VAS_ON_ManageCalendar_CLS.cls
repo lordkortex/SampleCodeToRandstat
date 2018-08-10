@@ -6,7 +6,7 @@
 * @group-content ../../ApexDocContent/CRAN_VAS_ON_ManageCalendar_CLS.htm
 * @description Class to manage calenfar serviec. Works as Helper
 */
-public class CRAN_VAS_ON_ManageCalendar_CLS{
+public with sharing class CRAN_VAS_ON_ManageCalendar_CLS{
 
     /** The Constant SUFIX_TIME_START. */
     public static final String SUFIX_TIME_START = 'StartTime';
